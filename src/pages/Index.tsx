@@ -69,7 +69,7 @@ const Index = () => {
             <a href="#how" className="text-gray-600 hover:text-blue-600 transition-colors">Как это работает</a>
             <a href="#routes" className="text-gray-600 hover:text-blue-600 transition-colors">Маршруты</a>
             <a href="#faq" className="text-gray-600 hover:text-blue-600 transition-colors">FAQ</a>
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2" onClick={() => navigate('/login')}>
               <Icon name="User" size={18} />
               Войти
             </Button>
