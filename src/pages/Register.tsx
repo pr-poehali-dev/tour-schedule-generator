@@ -142,16 +142,12 @@ const Register = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" type="button" className="gap-2">
-                <Icon name="Github" size={18} />
-                GitHub
-              </Button>
-              <Button variant="outline" type="button" className="gap-2">
-                <Icon name="Chrome" size={18} />
-                Google
-              </Button>
-            </div>
+            <Button variant="outline" type="button" className="w-full gap-2">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+              </svg>
+              Регистрация через Яндекс Почту
+            </Button>
 
             <p className="text-center text-sm text-gray-600 mt-6">
               Уже есть аккаунт?{' '}
