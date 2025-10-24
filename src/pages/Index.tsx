@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -8,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
+  const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [budget, setBudget] = useState([2]);
   const [days, setDays] = useState([5]);
@@ -156,7 +158,12 @@ const Index = () => {
                 <CardContent>
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-semibold text-primary">{route.price}</span>
-                    <Button variant="ghost" size="sm" className="gap-1">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="gap-1"
+                      onClick={() => navigate('/route/1')}
+                    >
                       Подробнее
                       <Icon name="ArrowRight" size={16} />
                     </Button>
@@ -252,7 +259,14 @@ const Index = () => {
                       </div>
                     </div>
 
-                    <Button className="w-full py-6 text-lg gap-2" size="lg">
+                    <Button 
+                      className="w-full py-6 text-lg gap-2" 
+                      size="lg"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate('/route/1');
+                      }}
+                    >
                       <Icon name="Sparkles" size={24} />
                       Сгенерировать маршрут
                     </Button>
