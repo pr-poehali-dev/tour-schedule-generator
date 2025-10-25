@@ -13,8 +13,7 @@ import Icon from '@/components/ui/icon';
 const Index = () => {
   const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
-  const [budget, setBudget] = useState([2]);
-  const [days, setDays] = useState([5]);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const scrollToForm = () => {
     setShowForm(true);
@@ -47,7 +46,7 @@ const Index = () => {
     }
   ];
 
-  const budgetLabels = ['Эконом', 'Стандарт', 'Комфорт', 'Люкс'];
+
   const interests = [
     { id: 'culture', label: 'Культурный' },
     { id: 'active', label: 'Активный отдых' },
@@ -199,22 +198,45 @@ const Index = () => {
               <Card className="shadow-lg">
                 <CardContent className="p-6 md:p-8">
                   <form className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="from">Откуда</Label>
-                        <div className="relative">
-                          <Icon name="MapPin" size={18} className="absolute left-3 top-3 text-gray-400" />
-                          <Input id="from" placeholder="Москва" className="pl-10" />
-                        </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="region">Район маршрута</Label>
+                      <div className="relative">
+                        <Icon name="Map" size={18} className="absolute left-3 top-3 text-gray-400" />
+                        <Input id="region" placeholder="Например: Золотое кольцо, Байкал, Крым" className="pl-10" />
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="to">Куда</Label>
-                        <div className="relative">
-                          <Icon name="Navigation" size={18} className="absolute left-3 top-3 text-gray-400" />
-                          <Input id="to" placeholder="Санкт-Петербург" className="pl-10" />
-                        </div>
-                      </div>
+                      <p className="text-xs text-gray-500">Укажите город, регион или туристический район</p>
                     </div>
+
+                    <div className="space-y-2">
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        className="w-full gap-2"
+                        onClick={() => setShowAdvanced(!showAdvanced)}
+                      >
+                        <Icon name={showAdvanced ? "ChevronUp" : "ChevronDown"} size={18} />
+                        {showAdvanced ? 'Скрыть' : 'Указать'} начальную и конечную точки
+                      </Button>
+                    </div>
+
+                    {showAdvanced && (
+                      <div className="grid md:grid-cols-2 gap-6 p-4 bg-gray-50 rounded-lg">
+                        <div className="space-y-2">
+                          <Label htmlFor="from">Начальная точка (опционально)</Label>
+                          <div className="relative">
+                            <Icon name="MapPin" size={18} className="absolute left-3 top-3 text-gray-400" />
+                            <Input id="from" placeholder="Москва" className="pl-10" />
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="to">Конечная точка (опционально)</Label>
+                          <div className="relative">
+                            <Icon name="Navigation" size={18} className="absolute left-3 top-3 text-gray-400" />
+                            <Input id="to" placeholder="Санкт-Петербург" className="pl-10" />
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
@@ -227,50 +249,38 @@ const Index = () => {
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label>Количество дней: {days[0]}</Label>
-                      <Slider 
-                        value={days} 
-                        onValueChange={setDays}
-                        min={1} 
-                        max={30} 
-                        step={1}
-                        className="py-4"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label>Бюджет: {budgetLabels[budget[0]]}</Label>
-                      <Slider 
-                        value={budget} 
-                        onValueChange={setBudget}
-                        min={0} 
-                        max={3} 
-                        step={1}
-                        className="py-4"
-                      />
-                      <div className="flex justify-between text-xs text-gray-500">
-                        {budgetLabels.map((label) => (
-                          <span key={label}>{label}</span>
-                        ))}
+                    <div className="grid md:grid-cols-3 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="travelers">Количество человек *</Label>
+                        <Input 
+                          id="travelers" 
+                          type="number" 
+                          min="1" 
+                          placeholder="1"
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="days">Количество дней</Label>
+                        <Input 
+                          id="days" 
+                          type="number" 
+                          min="1" 
+                          placeholder="Любое"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="budget">Бюджет (₽)</Label>
+                        <Input 
+                          id="budget" 
+                          type="number" 
+                          min="0" 
+                          placeholder="Любой"
+                        />
                       </div>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="travelers">Количество человек</Label>
-                        <Select>
-                          <SelectTrigger id="travelers">
-                            <SelectValue placeholder="Выберите" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="1">1 человек</SelectItem>
-                            <SelectItem value="2">2 человека</SelectItem>
-                            <SelectItem value="3-4">3-4 человека</SelectItem>
-                            <SelectItem value="5+">5+ человек</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
                       <div className="space-y-2">
                         <Label htmlFor="transport">Предпочитаемый транспорт</Label>
                         <Select>
@@ -283,24 +293,6 @@ const Index = () => {
                             <SelectItem value="train">Поезд</SelectItem>
                             <SelectItem value="plane">Самолёт</SelectItem>
                             <SelectItem value="bus">Автобус</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="accommodation">Тип размещения</Label>
-                        <Select>
-                          <SelectTrigger id="accommodation">
-                            <SelectValue placeholder="Выберите" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="any">Любое</SelectItem>
-                            <SelectItem value="hotel">Отель</SelectItem>
-                            <SelectItem value="hostel">Хостел</SelectItem>
-                            <SelectItem value="apartment">Апартаменты</SelectItem>
-                            <SelectItem value="camping">Кемпинг</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -317,6 +309,22 @@ const Index = () => {
                           </SelectContent>
                         </Select>
                       </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="accommodation">Тип размещения</Label>
+                      <Select>
+                        <SelectTrigger id="accommodation">
+                          <SelectValue placeholder="Выберите" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="any">Любое</SelectItem>
+                          <SelectItem value="hotel">Отель</SelectItem>
+                          <SelectItem value="hostel">Хостел</SelectItem>
+                          <SelectItem value="apartment">Апартаменты</SelectItem>
+                          <SelectItem value="camping">Кемпинг</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
 
                     <div className="space-y-3">
