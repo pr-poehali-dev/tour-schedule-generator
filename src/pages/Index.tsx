@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
@@ -52,7 +54,13 @@ const Index = () => {
     { id: 'beach', label: 'Пляжный' },
     { id: 'gastro', label: 'Гастрономический' },
     { id: 'family', label: 'Семейный' },
-    { id: 'romantic', label: 'Романтический' }
+    { id: 'romantic', label: 'Романтический' },
+    { id: 'nature', label: 'Природа' },
+    { id: 'adventure', label: 'Экстрим' },
+    { id: 'wellness', label: 'Оздоровление' },
+    { id: 'shopping', label: 'Шопинг' },
+    { id: 'photo', label: 'Фотография' },
+    { id: 'education', label: 'Образовательный' }
   ];
 
   return (
@@ -248,6 +256,69 @@ const Index = () => {
                       </div>
                     </div>
 
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="travelers">Количество человек</Label>
+                        <Select>
+                          <SelectTrigger id="travelers">
+                            <SelectValue placeholder="Выберите" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="1">1 человек</SelectItem>
+                            <SelectItem value="2">2 человека</SelectItem>
+                            <SelectItem value="3-4">3-4 человека</SelectItem>
+                            <SelectItem value="5+">5+ человек</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="transport">Предпочитаемый транспорт</Label>
+                        <Select>
+                          <SelectTrigger id="transport">
+                            <SelectValue placeholder="Выберите" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="any">Любой</SelectItem>
+                            <SelectItem value="car">Автомобиль</SelectItem>
+                            <SelectItem value="train">Поезд</SelectItem>
+                            <SelectItem value="plane">Самолёт</SelectItem>
+                            <SelectItem value="bus">Автобус</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="accommodation">Тип размещения</Label>
+                        <Select>
+                          <SelectTrigger id="accommodation">
+                            <SelectValue placeholder="Выберите" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="any">Любое</SelectItem>
+                            <SelectItem value="hotel">Отель</SelectItem>
+                            <SelectItem value="hostel">Хостел</SelectItem>
+                            <SelectItem value="apartment">Апартаменты</SelectItem>
+                            <SelectItem value="camping">Кемпинг</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="pace">Темп путешествия</Label>
+                        <Select>
+                          <SelectTrigger id="pace">
+                            <SelectValue placeholder="Выберите" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="relaxed">Спокойный</SelectItem>
+                            <SelectItem value="moderate">Умеренный</SelectItem>
+                            <SelectItem value="intense">Насыщенный</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
                     <div className="space-y-3">
                       <Label>Цель поездки</Label>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -263,6 +334,15 @@ const Index = () => {
                           </div>
                         ))}
                       </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="wishes">Дополнительные пожелания</Label>
+                      <Textarea 
+                        id="wishes" 
+                        placeholder="Опишите ваши особые пожелания: любимые места, ограничения по здоровью, особые интересы и т.д."
+                        className="min-h-[120px] resize-none"
+                      />
                     </div>
 
                     <Button 
