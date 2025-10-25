@@ -21,27 +21,27 @@ const Index = () => {
     }, 100);
   };
 
-  const popularRoutes = [
+  const upcomingEvents = [
     {
       image: 'https://cdn.poehali.dev/projects/f5d927b5-3501-41b3-8881-b95476cf2be0/files/7fbcf6be-287e-4f38-b5d6-bcf3ff19bbd8.jpg',
-      title: 'Горные вершины Алтая',
-      description: 'Приключение среди заснеженных пиков и кристальных озёр',
-      duration: '7 дней',
-      price: 'от 45 000 ₽'
+      title: 'Фестиваль света в Москве',
+      description: 'Грандиозное шоу проекций и инсталляций',
+      date: '15 ноября',
+      type: 'event'
     },
     {
       image: 'https://cdn.poehali.dev/projects/f5d927b5-3501-41b3-8881-b95476cf2be0/files/e02b2fa4-57e7-4d0c-a1e4-bdc772f7d1a7.jpg',
-      title: 'Исторический Санкт-Петербург',
-      description: 'Культурная столица с музеями мирового уровня',
-      duration: '5 дней',
-      price: 'от 32 000 ₽'
+      title: 'Новая выставка в Эрмитаже',
+      description: 'Импрессионисты: частные коллекции Европы',
+      date: 'С 20 октября',
+      type: 'new'
     },
     {
       image: 'https://cdn.poehali.dev/projects/f5d927b5-3501-41b3-8881-b95476cf2be0/files/3973e362-5196-4f78-b895-4157d97ef490.jpg',
-      title: 'Пляжи Черноморского побережья',
-      description: 'Солнце, море и незабываемый отдых на берегу',
-      duration: '10 дней',
-      price: 'от 55 000 ₽'
+      title: 'Открытие эко-тропы на Байкале',
+      description: 'Уникальный маршрут через заповедные места',
+      date: 'С 1 ноября',
+      type: 'new'
     }
   ];
 
@@ -132,42 +132,48 @@ const Index = () => {
 
       <section id="routes" className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Популярные маршруты</h2>
-          <p className="text-gray-600 text-center mb-12">Вдохновитесь на приключение</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Предстоящие события и новинки</h2>
+          <p className="text-gray-600 text-center mb-12">Новые достопримечательности и интересные события</p>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {popularRoutes.map((route, i) => (
+            {upcomingEvents.map((item, i) => (
               <Card key={i} className="overflow-hidden hover:shadow-xl transition-shadow cursor-pointer group">
                 <div className="relative h-48 overflow-hidden">
                   <img 
-                    src={route.image} 
-                    alt={route.title}
+                    src={item.image} 
+                    alt={item.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute top-4 right-4">
+                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                      item.type === 'event' 
+                        ? 'bg-purple-500 text-white' 
+                        : 'bg-green-500 text-white'
+                    }`}>
+                      {item.type === 'event' ? 'Событие' : 'Новинка'}
+                    </span>
+                  </div>
                   <div className="absolute bottom-4 left-4 text-white">
                     <div className="flex items-center gap-2 text-sm mb-1">
-                      <Icon name="Clock" size={16} />
-                      {route.duration}
+                      <Icon name="Calendar" size={16} />
+                      {item.date}
                     </div>
                   </div>
                 </div>
                 <CardHeader>
-                  <CardTitle>{route.title}</CardTitle>
-                  <CardDescription>{route.description}</CardDescription>
+                  <CardTitle>{item.title}</CardTitle>
+                  <CardDescription>{item.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-semibold text-primary">{route.price}</span>
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      className="gap-1"
-                      onClick={() => navigate('/route/1')}
-                    >
-                      Подробнее
-                      <Icon name="ArrowRight" size={16} />
-                    </Button>
-                  </div>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="gap-1 w-full"
+                    onClick={() => navigate('/route/1')}
+                  >
+                    Узнать больше
+                    <Icon name="ArrowRight" size={16} />
+                  </Button>
                 </CardContent>
               </Card>
             ))}
