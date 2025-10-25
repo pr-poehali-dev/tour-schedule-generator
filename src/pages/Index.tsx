@@ -14,6 +14,28 @@ const Index = () => {
   const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [dateValidationError, setDateValidationError] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [daysInput, setDaysInput] = useState('');
+
+  const validateDates = (start: string, end: string, days: string) => {
+    if (!start || !end || !days) {
+      setDateValidationError('');
+      return;
+    }
+
+    const startDateObj = new Date(start);
+    const endDateObj = new Date(end);
+    const daysDiff = Math.ceil((endDateObj.getTime() - startDateObj.getTime()) / (1000 * 60 * 60 * 24));
+    const daysNumber = parseInt(days);
+
+    if (daysDiff !== daysNumber) {
+      setDateValidationError(`Указанные даты соответствуют ${daysDiff} дням, а не ${daysNumber}`);
+    } else {
+      setDateValidationError('');
+    }
+  };
 
   const scrollToForm = () => {
     setShowForm(true);
@@ -243,11 +265,27 @@ const Index = () => {
                       <div className="grid md:grid-cols-3 gap-6">
                         <div className="space-y-2">
                           <Label htmlFor="start-date" className="text-sm text-gray-600">Начало поездки</Label>
-                          <Input id="start-date" type="date" />
+                          <Input 
+                            id="start-date" 
+                            type="date" 
+                            value={startDate}
+                            onChange={(e) => {
+                              setStartDate(e.target.value);
+                              validateDates(e.target.value, endDate, daysInput);
+                            }}
+                          />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="end-date" className="text-sm text-gray-600">Конец поездки</Label>
-                          <Input id="end-date" type="date" />
+                          <Input 
+                            id="end-date" 
+                            type="date" 
+                            value={endDate}
+                            onChange={(e) => {
+                              setEndDate(e.target.value);
+                              validateDates(startDate, e.target.value, daysInput);
+                            }}
+                          />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="days" className="text-sm text-gray-600">Длительность (дней)</Label>
@@ -256,10 +294,22 @@ const Index = () => {
                             type="number" 
                             min="1" 
                             placeholder="Не указано"
+                            value={daysInput}
+                            onChange={(e) => {
+                              setDaysInput(e.target.value);
+                              validateDates(startDate, endDate, e.target.value);
+                            }}
                           />
                         </div>
                       </div>
-                      <p className="text-xs text-gray-500">Укажите даты или длительность, либо оставьте пустым</p>
+                      {dateValidationError ? (
+                        <div className="flex items-start gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+                          <Icon name="AlertTriangle" size={18} className="text-yellow-600 mt-0.5" />
+                          <p className="text-sm text-yellow-800">{dateValidationError}</p>
+                        </div>
+                      ) : (
+                        <p className="text-xs text-gray-500">Укажите даты или длительность, либо оставьте пустым</p>
+                      )}
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
