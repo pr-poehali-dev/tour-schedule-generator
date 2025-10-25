@@ -238,18 +238,31 @@ const Index = () => {
                       </div>
                     )}
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="start-date">Начало поездки</Label>
-                        <Input id="start-date" type="date" />
+                    <div className="space-y-4">
+                      <Label>Даты и длительность (опционально)</Label>
+                      <div className="grid md:grid-cols-3 gap-6">
+                        <div className="space-y-2">
+                          <Label htmlFor="start-date" className="text-sm text-gray-600">Начало поездки</Label>
+                          <Input id="start-date" type="date" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="end-date" className="text-sm text-gray-600">Конец поездки</Label>
+                          <Input id="end-date" type="date" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="days" className="text-sm text-gray-600">Длительность (дней)</Label>
+                          <Input 
+                            id="days" 
+                            type="number" 
+                            min="1" 
+                            placeholder="Не указано"
+                          />
+                        </div>
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="end-date">Конец поездки</Label>
-                        <Input id="end-date" type="date" />
-                      </div>
+                      <p className="text-xs text-gray-500">Укажите даты или длительность, либо оставьте пустым</p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6">
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="travelers">Количество человек *</Label>
                         <Input 
@@ -258,15 +271,6 @@ const Index = () => {
                           min="1" 
                           placeholder="1"
                           required
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="days">Количество дней</Label>
-                        <Input 
-                          id="days" 
-                          type="number" 
-                          min="1" 
-                          placeholder="Любое"
                         />
                       </div>
                       <div className="space-y-2">
